@@ -1,14 +1,12 @@
 class BookSerializer
-  def self.format_books(books)
-    books.map do |book|
-      {
-        id: book.id,
-        title: book.title,
-        author: book.author,
-        genre: book.genre,
-        summary: book.summary,
-        popularity: book.popularity
-      }
-    end
-  end
+  include JSONAPI::Serializer
+  attributes  :title,
+              :author,
+              :genre,
+              :summary,
+              :number_sold,
+              :popularity,
+              :num_stores
+
+  has_many :stores
 end

@@ -62,14 +62,14 @@ describe "Books API" do
   end
 
   it "can create a new book" do
-    book_params = ({
-                    title: "Murder on the Orient Express",
-                    author: "Agatha Christie",
-                    genre: "mystery",
-                    summary: "Filled with suspense.",
-                    number_sold: 432
-                  })
-    headers = {"CONTENT_TYPE" => "application/json"}
+    book_params = {
+      title: "Murder on the Orient Express",
+      author: "Agatha Christie",
+      genre: "mystery",
+      summary: "Filled with suspense.",
+      number_sold: 432
+    }
+    headers = { "CONTENT_TYPE" => "application/json" }
 
     post "/api/v1/books", headers: headers, params: JSON.generate(book: book_params)
     created_book = Book.last
@@ -86,9 +86,9 @@ describe "Books API" do
     id = create(:book).id
     previous_name = Book.last.title
     book_params = { title: "Charlotte's Web" }
-    headers = {"CONTENT_TYPE" => "application/json"}
+    headers = { "CONTENT_TYPE" => "application/json" }
 
-    patch "/api/v1/books/#{id}", headers: headers, params: JSON.generate({book: book_params})
+    patch "/api/v1/books/#{id}", headers: headers, params: JSON.generate({ book: book_params })
     book = Book.find_by(id: id)
 
     expect(response).to be_successful
@@ -99,8 +99,8 @@ describe "Books API" do
   it "can destroy a book" do
     book = create(:book)
 
-    expect{ delete "/api/v1/books/#{book.id}" }.to change(Book, :count).by(-1)
-    
-    expect{Book.find(book.id)}.to raise_error(ActiveRecord::RecordNotFound)
+    expect { delete "/api/v1/books/#{book.id}" }.to change(Book, :count).by(-1)
+
+    expect { Book.find(book.id) }.to raise_error(ActiveRecord::RecordNotFound)
   end
 end

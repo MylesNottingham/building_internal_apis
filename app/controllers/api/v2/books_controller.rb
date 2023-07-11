@@ -1,6 +1,9 @@
 class Api::V2::BooksController < ApplicationController
   def index
-    books = Book.all
-    render json: BookSerializer.format_books(books)
+    render json: BookSerializer.new(Book.all)
+  end
+
+  def show
+    render json: BookSerializer.new(Book.find(params[:id]))
   end
 end
